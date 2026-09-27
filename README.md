@@ -77,3 +77,30 @@ print(order["id"], order["status"])
 - To use live trading, change `APCA_API_BASE_URL` to
   `https://api.alpaca.markets` — but understand the risk first.
 - Dependencies: `pip install -r requirements.txt` (just `requests`).
+
+## Home Assistant MCP (for Claude Code)
+
+This repo ships a project-scoped [`.mcp.json`](.mcp.json) that connects Claude
+Code to Home Assistant's built-in **Model Context Protocol Server** integration,
+so Claude can read entity states and control devices exposed to Assist.
+
+1. **Enable the MCP server in Home Assistant** (2025.2 or newer):
+   *Settings → Devices & services → Add integration → "Model Context Protocol Server"*.
+2. **Choose what Claude can see/control:** *Settings → Voice assistants → Expose*.
+   Only exposed entities are available over MCP.
+3. **Create a token:** your HA profile → *Security* → *Long-lived access tokens* → *Create token*.
+4. **Export the variables** in the shell you launch Claude Code from
+   (Claude Code reads the environment, not `.env`):
+
+   ```bash
+   export HASS_URL=http://homeassistant.local:8123   # or your Nabu Casa / remote URL
+   export HASS_TOKEN=your_long_lived_access_token
+   ```
+
+5. **Start Claude Code** in this directory, approve the `home-assistant` server
+   when prompted, and check it with `/mcp` (or `claude mcp list`).
+
+Claude must be able to reach `HASS_URL` over the network. A `homeassistant.local`
+address only works on your home LAN; for cloud sessions use an externally
+reachable URL (e.g. Nabu Casa remote UI) and allow that host in the
+environment's network settings.
