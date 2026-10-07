@@ -15,6 +15,11 @@ anything not pushed to `main` here is effectively lost to every other session.
   bot or dashboard: commit and push to `main`.** If the session has its own
   `claude/...` branch, merge it into `main` and push `main` too.
 - Before saying a strategy can't be found, check `strategies/` on `main`.
+- GitHub's default branch is still `claude/alpaca-paper-account-t4rp13`, so
+  after pushing `main`, also run
+  `git push origin main:claude/alpaca-paper-account-t4rp13` to keep it in sync.
+  (Drop this step once the default branch is switched to `main` in GitHub
+  Settings → General.)
 
 ## What this is
 
