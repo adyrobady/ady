@@ -2,6 +2,20 @@
 
 Guidance for AI assistants (and humans) working in this repository.
 
+## Where things are saved (read first)
+
+This repo is the single home for all of the owner's trading work. Sessions run
+on different machines (phone/cloud containers, the Mac via Remote Control), and
+anything not pushed to `main` here is effectively lost to every other session.
+
+- **Every strategy goes in `strategies/<name>/`** with a `README.md` (rules with
+  exact numbers, status, latest results incl. test window and costs, findings)
+  plus its code. Follow `strategies/README.md` and update its index table.
+- **Before finishing any session that created or changed a strategy, backtest,
+  bot or dashboard: commit and push to `main`.** If the session has its own
+  `claude/...` branch, merge it into `main` and push `main` too.
+- Before saying a strategy can't be found, check `strategies/` on `main`.
+
 ## What this is
 
 A small, readable Python client for the [Alpaca](https://alpaca.markets)
@@ -22,6 +36,9 @@ ady/
 ├── .env.example         # Template for credentials (copy to .env)
 ├── .env                 # Your real keys — gitignored, never committed
 ├── README.md            # User-facing setup & usage docs
+├── telegram_links.py    # Telegram dashboard links
+├── strategies/          # All trading strategies, one folder each (see strategies/README.md)
+│   └── data/            # Shared price data (CSV)
 └── alpaca_client/
     ├── __init__.py      # Public exports: AlpacaClient, AlpacaError, load_config, Config
     ├── client.py        # AlpacaClient — thin REST wrapper over the Alpaca API
@@ -137,7 +154,8 @@ and keep them dependency-light to match the project's spirit.
 
 ## Git workflow
 
-- Active development branch: `claude/claude-md-docs-dpawuk`.
+- `main` is the default branch and the source of truth. Merge work into it
+  and push (see "Where things are saved" above).
 - Commit with clear, descriptive messages; do not open a pull request unless
   explicitly asked.
 - Verify `.env` and other secrets are never staged before committing.
