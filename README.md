@@ -77,3 +77,16 @@ print(order["id"], order["status"])
 - To use live trading, change `APCA_API_BASE_URL` to
   `https://api.alpaca.markets` — but understand the risk first.
 - Dependencies: `pip install -r requirements.txt` (just `requests`).
+
+## Home Assistant (for Claude)
+
+Home Assistant is connected to Claude as a **custom connector**, not through
+files in this repo.
+
+1. In Home Assistant, add the **Model Context Protocol Server** integration and
+   choose which devices to share under *Settings → Voice assistants → Expose*.
+2. At <https://claude.ai/customize/connectors>, click **Add custom connector**:
+   - **URL:** `https://<your-id>.ui.nabu.casa/api/mcp`
+   - **Authentication:** Sign in now
+   - **OAuth client:** Use your own OAuth client, client ID `https://claude.ai`
+3. Click **Add**, sign in to Home Assistant, then start a new session.

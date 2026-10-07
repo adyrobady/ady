@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Home_Assistant_Full",
+      "mcp__Home_Assistant"
+    ]
+  }
+}
