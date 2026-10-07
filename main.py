@@ -12,6 +12,7 @@ Usage examples
     python main.py buy AAPL --notional 100
     python main.py sell AAPL --qty 1
     python main.py cancel <order_id>
+    python main.py telegram               # generate telegram dashboard links
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ import sys
 
 from alpaca_client import AlpacaClient, AlpacaError
 from alpaca_client.config import ConfigError
+from telegram_links import TelegramDashboardLinks
 
 
 def _client() -> AlpacaClient:
@@ -106,6 +108,10 @@ def cmd_cancel(args: argparse.Namespace) -> None:
     print(f"✓ Cancelled order {args.order_id}")
 
 
+def cmd_telegram(_: argparse.Namespace) -> None:
+    TelegramDashboardLinks.print_links()
+
+
 def _print_json(obj) -> None:
     import json
 
@@ -148,6 +154,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_cancel = sub.add_parser("cancel", help="cancel an order by id")
     p_cancel.add_argument("order_id")
     p_cancel.set_defaults(func=cmd_cancel)
+
+    sub.add_parser("telegram", help="generate telegram dashboard links").set_defaults(
+        func=cmd_telegram
+    )
 
     return parser
 
